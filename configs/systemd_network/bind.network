@@ -1,0 +1,9 @@
+# In this config, every enp* nic will be bind to br0, MTU 9000 will be set to each member.
+[Match]
+Name=enp*
+
+[Network]
+Bridge=br0
+
+[Link]
+MTUBytes=9000

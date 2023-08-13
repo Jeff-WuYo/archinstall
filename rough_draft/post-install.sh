@@ -9,5 +9,6 @@ systemctl enable systemd-resolved.service
 systemctl enable fstrim.service
 systemctl enable apparmor.service
 systemctl enable ufw.service
+systemctl enable fstrim.timer
 # install bootloader, configure systemd-boot
 # adding user will be an maunal process for now.

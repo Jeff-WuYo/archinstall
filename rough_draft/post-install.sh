@@ -11,4 +11,6 @@ systemctl enable apparmor.service
 systemctl enable ufw.service
 systemctl enable fstrim.timer
 # install bootloader, configure systemd-boot
+bootctl install &&
+cp /usr/share/systemd/bootctl/arch.conf /boot/loader/entries/
 # adding user will be an maunal process for now.

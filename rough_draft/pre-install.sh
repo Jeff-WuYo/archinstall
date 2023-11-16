@@ -1,28 +1,27 @@
-#!/bin/zsh
+#!/bin/sh
 timedatectl set-ntp true
 timedatectl set-timezone Asia/Taipei
 reflector -c TW -p https --sort rate --save /etc/pacman.d/mirrorlist
-pacman -Sy archlinux-keyring --needed
+pacman -Sy archlinux-keyring --noconfirm
 # partition disk
-echo "Do you want to partiton disk now? (yes/no)"
-read "ans1"
+read -p "Do you want to partiton disk now? (yes/no)" ans1
 if [ $ans1 = "yes" ]; then
     lsblk
-    echo "Which disk do you want to install? (/dev/<disk_to_install>)"
-    read "dis"
-    echo "Is $dis correct? (yes/no)"
-    read "ans2"
+    echo "Which disk do you want to install?"
+    read -p "(/dev/<disk_to_install>)" dis
+    echo
+    read -p "Is $dis correct? (yes/no)" ans2
 elif [ $ans2 = "yes" ]; then
     sgdisk -Z /dev/$dis && 
     sgdisk -og /dev/$dis && 
     sgdisk -n 1:2048:+300M -n 2:0:+1G -n 3:0:0 -t 1:ef00 -t 2:8200 -t 3:8300 -c 1:EFI -c 2:SWAP -c 3:LINUX_ROOT /dev/$dis
     sgdisk -p /dev/$dis
 else
-    echo "abort"
+    echo "Partition disk failed, abort!"
     exit 101
 fi
 # format partiton
-if [ "$dis" = *"nvme"* ]; then
+if [ "$dis" =~ *"nvme"* ]; then
     par="$dis"p
 else
     par="$dis"
@@ -30,10 +29,11 @@ fi
 
 mkfs.fat -F32 /dev/"$par"1
 mkswap /dev/"$par"2
-mkfs.btrfs /dev/"$par"3
+mkfs.btrfs -L LINUX_ROOT /dev/"$par"3
 rpar="$par"3
 
 # create btrfs subv
+umount -A --recursive /mnt
 mount /dev/$rpar /mnt && 
 btrfs subv create /mnt/@ && 
 btrfs subv create /mnt/@home && 

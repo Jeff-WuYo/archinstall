@@ -2,7 +2,7 @@
 timedatectl set-ntp true
 timedatectl set-timezone Asia/Taipei
 reflector -c TW -p https --sort rate --save /etc/pacman.d/mirrorlist
-pacman -Sy archlinux-keyring --noconfirm
+pacman -Sy archlinux-keyring --noconfirm --needed
 # partition disk
 read -p "Do you want to partiton disk now? (yes/no)" ans1
 if [ $ans1 = "yes" ]; then
@@ -11,13 +11,17 @@ if [ $ans1 = "yes" ]; then
     read -p "(/dev/<disk_to_install>)" dis
     echo
     read -p "Is $dis correct? (yes/no)" ans2
-elif [ $ans2 = "yes" ]; then
+    if [ $ans2 = "yes" ]; then
     sgdisk -Z /dev/$dis && 
     sgdisk -og /dev/$dis && 
     sgdisk -n 1:2048:+300M -n 2:0:+1G -n 3:0:0 -t 1:ef00 -t 2:8200 -t 3:8300 -c 1:EFI -c 2:SWAP -c 3:LINUX_ROOT /dev/$dis
     sgdisk -p /dev/$dis
+    else
+        echo "partition disk failed, abort!"
+        exit 102
+    fi
 else
-    echo "Partition disk failed, abort!"
+    echo "partition disk failed, abort!"
     exit 101
 fi
 # format partiton

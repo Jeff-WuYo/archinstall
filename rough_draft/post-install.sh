@@ -13,5 +13,6 @@ systemctl enable ufw.service
 #systemctl enable fstrim.service
 # install bootloader, configure systemd-boot
 bootctl install &&
-cp /usr/share/systemd/bootctl/arch.conf /boot/loader/entries/
+cp /usr/share/systemd/bootctl/arch.conf /boot/loader/entries/ &&
+sed -i "s/PARTUUID=XXXX/$(blkid | awk '/btrfs/ {print $NF}' | tr -d \")/; s/rootfstype=XXXX/rootfstype=btrfs/" /boot/loader/entries/arch.conf
 # adding user will be an maunal process for now.

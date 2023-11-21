@@ -8,9 +8,9 @@ read -p "Do you want to partiton disk now? (yes/no)" ans1
 if [ $ans1 = "yes" ]; then
     lsblk
     echo "Which disk do you want to install?"
-    read -p "(/dev/<disk_to_install>)" dis
+    read -p "(/dev/<disk_to_install>): " dis
     echo
-    read -p "Is $dis correct? (yes/no)" ans2
+    read -p "Is $dis correct? (yes/no): " ans2
     if [ $ans2 = "yes" ]; then
     sgdisk -Z /dev/$dis && 
     sgdisk -og /dev/$dis && 

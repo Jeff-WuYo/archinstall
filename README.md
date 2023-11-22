@@ -7,5 +7,5 @@ The script will be in two part:
 - After chroot
 
 ### To do list
-- [ ] Write down most command.(Basiclly what you do during maunal arch installation.)
+- [x] Write down most command.(Basiclly what you do during maunal arch installation.)
 - [ ] Make them into script.

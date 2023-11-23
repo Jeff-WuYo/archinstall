@@ -7,6 +7,7 @@ touch /etc/doas.conf && echo "permit persist :wheel" > /etc/doas.conf
 systemctl enable systemd-networkd.service
 systemctl enable systemd-resolved.service
 sed -i 's/#NTP=/NTP=time.stdtime.gov.tw/' /etc/systemd/timesyncd.conf && timedatectl set-ntp true
+sed -i 's/^#ParallelDownloads/ParallelDownloads/; s/^#Color/Color/' /etc/pacman.conf
 systemctl enable apparmor.service
 systemctl enable ufw.service
 systemctl enable systemd-zram-setup@zram0.service

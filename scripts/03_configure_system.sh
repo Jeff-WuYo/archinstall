@@ -15,5 +15,5 @@ systemctl enable systemd-zram-setup@zram0.service
 # install bootloader, configure systemd-boot
 bootctl install &&
 cp /usr/share/systemd/bootctl/arch.conf /boot/loader/entries/ &&
-sed -i "s/PARTUUID=XXXX/$(blkid | awk '/btrfs/ {print $NF}' | tr -d \")/; s/rootfstype=XXXX/rootfstype=btrfs/" /boot/loader/entries/arch.conf
+sed -i "s/PARTUUID=XXXX/$(blkid | awk '/'"$(awk '/256/ {print $1}' /etc/fstab | tr -d UUID=)"'/ {print$NF}' | tr -d \")/; s/rootfstype=XXXX/rootfstype=btrfs/" /boot/loader/entries/arch.conf
 # adding user will be an maunal process for now.

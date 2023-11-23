@@ -3,6 +3,7 @@ timedatectl set-ntp true
 timedatectl set-timezone Asia/Taipei
 reflector -c TW -p https --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Sy archlinux-keyring --noconfirm --needed
+sed -i 's/^#ParallelDownloads/ParallelDownloads/; s/^#Color/Color/' /etc/pacman.conf
 # partition disk
 read -p "Do you want to partiton disk now? (yes/no): " ans1
 if [ $ans1 = "yes" ]; then

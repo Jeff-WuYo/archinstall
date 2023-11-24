@@ -2,8 +2,8 @@
 ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 # locale configuration
 sed -i 's/#en_US.UTF-8/en_US.UTF-8/; s/#zh_TW.UTF-8/zh_TW.UTF-8/' /etc/locale.gen && locale-gen
-touch /etc/hostname && echo "archmobo" > /etc/hostname
-touch /etc/doas.conf && echo "permit persist :wheel" > /etc/doas.conf
+echo "archmobo" > /etc/hostname
+echo "permit persist :wheel" > /etc/doas.conf
 systemctl enable systemd-networkd.service
 systemctl enable systemd-resolved.service
 sed -i 's/#NTP=/NTP=time.stdtime.gov.tw/' /etc/systemd/timesyncd.conf && timedatectl set-ntp true

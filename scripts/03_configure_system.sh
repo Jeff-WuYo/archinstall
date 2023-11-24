@@ -15,7 +15,7 @@ systemctl enable ufw.service
 #systemctl enable fstrim.service
 # install bootloader, configure systemd-boot
 bootctl --esp-path=/efi --boot-path=/boot install &&
-cp /usr/share/systemd/bootctl/arch.conf /efi/loader/entries/ &&
-sed -i "s/PARTUUID=XXXX/$(blkid | awk '/'"$(awk '/256/ {print $1}' /etc/fstab | tr -d UUID=)"'/ {print$NF}' | tr -d \")/; s/rootfstype=XXXX/rootfstype=btrfs/" /efi/loader/entries/arch.conf
-sed -i '/options/s/$/ intel_iommu=on iommu=pt lsm=landlock,lockdown,yama,integrity,apparmor,bpf audit=1/' /efi/loader/entries/arch.conf
+cp /usr/share/systemd/bootctl/arch.conf /boot/loader/entries/ &&
+sed -i "s/PARTUUID=XXXX/$(blkid | awk '/'"$(awk '/256/ {print $1}' /etc/fstab | tr -d UUID=)"'/ {print$NF}' | tr -d \")/; s/rootfstype=XXXX/rootfstype=btrfs/" /boot/loader/entries/arch.conf
+sed -i '/options/s/$/ intel_iommu=on iommu=pt lsm=landlock,lockdown,yama,integrity,apparmor,bpf audit=1/' /boot/loader/entries/arch.conf
 # adding user will be an maunal process for now.

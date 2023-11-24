@@ -7,7 +7,7 @@ if [ "$(basename "$(pwd)")" = archinstall ]; then
     source ./scripts/02_pacstrap.sh &&
     cp -r ./configs/etc/ /mnt/
     mkdir -p /mnt/root/archinstall/scripts &&
-    cp --parents ./scripts/03_configure_system.sh ./scripts/04_desktop_gui.sh /mnt/root/archinstall/scripts/ &&
+    cp ./scripts/03_configure_system.sh ./scripts/04_desktop_gui.sh /mnt/root/archinstall/scripts/ &&
     arch-chroot /mnt /root/archinstall/scripts/03_configure_system.sh
 else
     echo "Please run ./startup.sh at archinstall directory."

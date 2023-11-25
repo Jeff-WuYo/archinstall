@@ -32,7 +32,7 @@ else
 fi
 
 mkfs.fat -n ESP -F32 /dev/"$par"1
-mkfs.ext4 -L BOOT /dev/"$par"2
+mkfs.fat -n BOOT -F32 /dev/"$par"2
 mkfs.btrfs -f -L LINUX_ROOT /dev/"$par"3
 rpar="$par"3
 

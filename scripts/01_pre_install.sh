@@ -12,9 +12,9 @@ if [ $ans1 = "yes" ]; then
     read -p "(/dev/<disk_to_install>): " dis
     read -p "Is $dis correct? All the data will be lost (yes/no): " ans2
     if [ $ans2 = "yes" ]; then
-    sgdisk -Z /dev/$dis && 
-    sgdisk -og /dev/$dis && 
-    sgdisk -n 1:2048:+260M -n 2:0:+1G -n 3:0:0 -t 1:ef00 -t 2:ea00 -t 3:8300 -c 1:ESP -c 2:BOOT -c 3:LINUX_ROOT /dev/$dis
+        sgdisk -Z /dev/$dis && 
+        sgdisk -og /dev/$dis && 
+        sgdisk -n 1:2048:+260M -n 2:0:+1G -n 3:0:0 -t 1:ef00 -t 2:ea00 -t 3:8300 -c 1:ESP -c 2:BOOT -c 3:LINUX_ROOT /dev/$dis
     sgdisk -p /dev/$dis
     else
         echo "partition disk failed, abort!"
@@ -25,12 +25,7 @@ else
     exit 101
 fi
 # format partiton
-if [[ "$dis" =~ "nvme" ]]; then
-    par="$dis"p
-else
-    par="$dis"
-fi
-
+[[ "$dis" =~ "nvme" ]] && par="$dis"p || par="$dis"
 mkfs.fat -n ESP -F32 /dev/"$par"1
 mkfs.fat -n BOOT -F32 /dev/"$par"2
 mkfs.btrfs -f -L LINUX_ROOT /dev/"$par"3

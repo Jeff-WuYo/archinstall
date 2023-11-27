@@ -20,7 +20,7 @@ sed -i "s/PARTUUID=XXXX/$(blkid | awk '/'"$(awk '/256/ {print $1}' /etc/fstab | 
 sed -i '/options/s/$/ intel_iommu=on iommu=pt lsm=landlock,lockdown,yama,integrity,apparmor,bpf audit=1/' /boot/loader/entries/arch.conf
 [ -f /boot/intel-ucode.img ] && sed -i '6i initrd  /intel-ucode.img' /boot/loader/entries/arch.conf
 [ -f /boot/amd-ucode.img ] && sed -i '6i initrd  /amd-ucode.img' /boot/loader/entries/arch.conf
-cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-fallback.conf && sed -i '/title/s/$/ (fallback)/; /s/initramfs-linux.img/initramfs-linux-fallback.img/' /boot/loader/entries/arch-fallback.conf
+cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-fallback.conf && sed -i '/title/s/$/ (fallback)/; s/initramfs-linux.img/initramfs-linux-fallback.img/' /boot/loader/entries/arch-fallback.conf
 # configure boot entries for different kernel
 [ -f /boot/initramfs-linux-lts.img ] && cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-lts.conf && sed -i 's/Linux/Linux LTS/; s/-linux/-linux-lts/g' /boot/loader/entries/arch-lts.conf
 [ -f /boot/initramfs-linux-lts-fallback.img ] && cp /boot/loader/entries/arch-fallback.conf /boot/loader/entries/arch-lts-fallback.conf && sed -i 's/Linux/Linux LTS/; s/-linux/-linux-lts/g' /boot/loader/entries/arch-lts-fallback.conf

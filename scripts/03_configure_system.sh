@@ -17,7 +17,7 @@ systemctl enable ufw.service
 bootctl --esp-path=/efi --boot-path=/boot install &&
 cp /usr/share/systemd/bootctl/arch.conf /boot/loader/entries/ &&
 sed -i "s/PARTUUID=XXXX/$(blkid | awk '/'"$(awk '/256/ {print $1}' /etc/fstab | tr -d UUID=)"'/ {print$NF}' | tr -d \")/; s/rootfstype=XXXX/rootfstype=btrfs/" /boot/loader/entries/arch.conf
-sed -i '/options/s/$/ intel_iommu=on iommu=pt lsm=landlock,lockdown,yama,integrity,apparmor,bpf audit=1/' /boot/loader/entries/arch.conf
+sed -i '/options/s/$/ rootflags=subvol=@ intel_iommu=on iommu=pt lsm=landlock,lockdown,yama,integrity,apparmor,bpf audit=1/' /boot/loader/entries/arch.conf
 [ -f /boot/intel-ucode.img ] && sed -i '6i initrd  /intel-ucode.img' /boot/loader/entries/arch.conf
 [ -f /boot/amd-ucode.img ] && sed -i '6i initrd  /amd-ucode.img' /boot/loader/entries/arch.conf
 cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-fallback.conf && sed -i '/title/s/$/ (fallback)/; s/initramfs-linux.img/initramfs-linux-fallback.img/' /boot/loader/entries/arch-fallback.conf

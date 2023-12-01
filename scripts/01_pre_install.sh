@@ -33,21 +33,25 @@ rpar="$par"3
 
 # create btrfs subv
 umount -A -R /mnt
-mount /dev/$rpar /mnt && 
-btrfs subv create /mnt/@ && 
-btrfs subv create /mnt/@home && 
-btrfs subv create /mnt/@cache && 
-btrfs subv create /mnt/@log && 
-btrfs subv create /mnt/@images && 
-btrfs subv set-default /mnt/@ && 
+mount /dev/$rpar /mnt &&
+btrfs subv create /mnt/@ &&
+btrfs subv create /mnt/@home &&
+btrfs subv create /mnt/@cache &&
+btrfs subv create /mnt/@log &&
+btrfs subv create /mnt/@tmp &&
+btrfs subv create /mnt/@images &&
+btrfs subv create /mnt/@docker &&
+btrfs subv set-default /mnt/@ &&
 umount /mnt &&
 
 # mount partition and subv
 mount -o rw,noatime,compress=zstd,subvolid=256 /dev/$rpar /mnt &&
-mkdir -p /mnt/{boot,efi,home,var/{log,cache,lib/libvirt/images}} &&
+mkdir -p /mnt/{boot,efi,home,tmp,docker,var/{log,cache,lib/libvirt/images}} &&
 mount -o rw,noatime,compress=zstd,subvolid=257 /dev/$rpar /mnt/home &&
 mount -o rw,noatime,compress=zstd,subvolid=258 /dev/$rpar /mnt/var/cache &&
 mount -o rw,noatime,compress=zstd,subvolid=259 /dev/$rpar /mnt/var/log &&
-mount -o rw,noatime,compress=zstd,subvolid=260 /dev/$rpar /mnt/var/lib/libvirt/images &&
+mount -o rw,noatime,compress=zstd,subvolid=260 /dev/$rpar /mnt/var/tmp &&
+mount -o rw,noatime,compress=zstd,subvolid=261 /dev/$rpar /mnt/var/lib/libvirt/images &&
+mount -o rw,noatime,compress=zstd,subvolid=262 /dev/$rpar /mnt/var/docker &&
 mount /dev/"$par"1 /mnt/efi &&
 mount /dev/"$par"2 /mnt/boot

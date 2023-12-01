@@ -46,7 +46,7 @@ umount /mnt &&
 
 # mount partition and subv
 mount -o rw,noatime,compress=zstd,subvolid=256 /dev/$rpar /mnt &&
-mkdir -p /mnt/{boot,efi,home,tmp,docker,var/{log,cache,lib/libvirt/images}} &&
+mkdir -p /mnt/{boot,efi,home,var/{log,cache,tmp,docker,lib/libvirt/images}} &&
 mount -o rw,noatime,compress=zstd,subvolid=257 /dev/$rpar /mnt/home &&
 mount -o rw,noatime,compress=zstd,subvolid=258 /dev/$rpar /mnt/var/cache &&
 mount -o rw,noatime,compress=zstd,subvolid=259 /dev/$rpar /mnt/var/log &&

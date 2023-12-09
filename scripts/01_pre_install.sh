@@ -27,7 +27,7 @@ fi
 # format partiton
 [[ "$dis" =~ "nvme" ]] && par="$dis"p || par="$dis"
 mkfs.fat -n ESP -F32 /dev/"$par"1
-mkfs.fat -n BOOT -F32 /dev/"$par"2
+mkfs.ext4 -L BOOT /dev/"$par"2
 mkfs.btrfs -f -L LINUX_ROOT /dev/"$par"3
 rpar="$par"3
 

@@ -6,24 +6,36 @@ pacman -Sy archlinux-keyring --noconfirm --needed
 sed -i 's/^#ParallelDownloads/ParallelDownloads/; s/^#Color/Color/' /etc/pacman.conf
 # partition disk
 read -p "Do you want to partiton disk now? (yes/no): " ans1
-if [ $ans1 = "yes" ]; then
-    lsblk
-    echo "Which disk do you want to install?"
-    read -p "(/dev/<disk_to_install>): " dis
-    read -p "Is $dis correct? All the data will be lost (yes/no): " ans2
-    if [ $ans2 = "yes" ]; then
-        sgdisk -Z /dev/$dis && 
-        sgdisk -og /dev/$dis && 
-        sgdisk -n 1:2048:+260M -n 2:0:+1G -n 3:0:0 -t 1:ef00 -t 2:ea00 -t 3:8300 -c 1:ESP -c 2:BOOT -c 3:LINUX_ROOT /dev/$dis
-    sgdisk -p /dev/$dis
+while [ ! "$ans1" = yes ]; do
+    if [ "$ans1" = no ]; then
+        echo "Stop partitioning, abort!"
+        exit 101
+    elif [ "$ans1" = exit ]; then
+        echo "Stop partitioning, abort!"
+        exit 101
     else
-        echo "partition disk failed, abort!"
-        exit 102
+        read -p "Do you want to partiton disk now? Please answer yes or no: " ans1
     fi
-else
-    echo "partition disk failed, abort!"
-    exit 101
-fi
+done
+lsblk
+read -p "Which disk do you want to install? (/dev/<disk_to_install>): " dis
+read -p "Is $dis correct? All the data will be lost (yes/no): " ans2
+while [ ! "$ans2" = yes ]; do
+    if [ "$ans2" = no ]; then
+        lsblk
+        read -p "Which disk do you want to install? (/dev/<disk_to_install>): " dis
+        read -p "Is $dis correct? All the data will be lost (yes/no): " ans2
+    elif [ "$ans2" = exit ]; then
+        echo "Abort!"
+        exit 102
+    else
+        read -p "Is $dis correct? All the data will be lost, Please answer yes or no: " ans2
+    fi
+done
+sgdisk -Z /dev/$dis && 
+sgdisk -og /dev/$dis && 
+sgdisk -n 1:2048:+260M -n 2:0:+1G -n 3:0:0 -t 1:ef00 -t 2:ea00 -t 3:8300 -c 1:ESP -c 2:BOOT -c 3:LINUX_ROOT /dev/$dis
+sgdisk -p /dev/$dis
 # format partiton
 [[ "$dis" =~ "nvme" ]] && par="$dis"p || par="$dis"
 mkfs.fat -n ESP -F32 /dev/"$par"1

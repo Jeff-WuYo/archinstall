@@ -53,6 +53,8 @@ btrfs subv create /mnt/@log &&
 btrfs subv create /mnt/@tmp &&
 btrfs subv create /mnt/@images &&
 btrfs subv create /mnt/@docker &&
+btrfs subv create /mnt/@Steam &&
+btrfs subv create /mnt/@Games &&
 btrfs subv set-default /mnt/@ &&
 umount /mnt &&
 

@@ -3,7 +3,7 @@
 if [ "$(basename "$(pwd)")" = archinstall ]; then
     echo "Starting installation..."
     pacman -S efifs --needed --noconfirm
-    chmod +x ./scripts/0*.sh &&
+    chmod u+x ./scripts/0*.sh &&
     source ./scripts/01_pre_install.sh &&
     source ./scripts/02_pacstrap.sh &&
     cp -r ./configs/etc/ /mnt/

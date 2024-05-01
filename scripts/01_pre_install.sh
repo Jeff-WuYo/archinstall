@@ -21,6 +21,7 @@ while [ ! "$ans1" = yes ]; do
         read -p "Do you want to partiton disk now? Please answer yes or no: " ans1
     fi
 done
+
 unset -v ans1 dis ans2
 lsblk
 read -p "Which disk do you want to install? (/dev/<disk_to_install>): " dis
@@ -38,6 +39,7 @@ while [ ! "$ans2" = yes ]; do
         read -p "Is $dis correct? All the data will be lost, Please answer yes or no: " ans2
     fi
 done
+
 sgdisk -Z /dev/$dis && 
 sgdisk -og /dev/$dis && 
 sgdisk -n 1:2048:+260M -n 2:0:+1G -n 3:0:0 -t 1:ef00 -t 2:ea00 -t 3:8300 -c 1:ESP -c 2:BOOT -c 3:LINUX_ROOT /dev/$dis

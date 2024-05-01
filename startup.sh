@@ -1,4 +1,6 @@
 #!/bin/sh
+set -euo pipefail
+
 # Checking if is running in Repo Folder
 if [ "$(basename "$(pwd)")" = archinstall ]; then
     echo "Starting installation..."

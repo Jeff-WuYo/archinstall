@@ -38,4 +38,7 @@ cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-fallback.conf && sed
 [ -f /boot/initramfs-linux-rt-lts-fallback.img ] && cp /boot/loader/entries/arch-fallback.conf /boot/loader/entries/arch-rt-lts-fallback.conf && sed -i 's/Linux/Linux Realtime LTS/; s/-linux/-linux-rt-lts/g' /boot/loader/entries/arch-rt-lts-fallback.conf
 [ ! -f /boot/initramfs-linux.img ] && rm /boot/loader/entries/arch.conf
 [ ! -f /boot/initramfs-linux-fallback.img ] && rm /boot/loader/entries/arch-fallback.conf
-echo "Please add user maunally, and setup password."
+
+echo "start user setup..."
+sleep 3
+source <(curl -s "https://hkg.mirror.rackspace.com/slackware/swackware64-current/source/a/shadow/adduser")

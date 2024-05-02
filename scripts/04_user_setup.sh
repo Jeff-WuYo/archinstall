@@ -30,7 +30,7 @@ while [[ ! "$gid" =~ ^[0-9]+$ || "$gid" -lt "$defaultgid" ]]; do
 done
 
 read -ep "What shell do you want to use? (zsh or [bash]): " -i "bash" shell
-while [ ! "$shell" = "bash" || ! "$shell" = "zsh" ]; do
+while [[ ! "$shell" = "bash" && ! "$shell" = "zsh" ]]; do
   read -ep "Please enter zsh or [bash]: " -i "bash" shell
 done
 

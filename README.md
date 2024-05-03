@@ -10,3 +10,4 @@ This script will do a minimal archlinux installation with main line kernel, syst
 - [x] Write down most command.(Basiclly what you do during maunal arch installation.)
 - [x] Make them into script.
 - [ ] Improve UID and GID detection.
+- [ ] Install AUR helper.

@@ -30,9 +30,9 @@ while [[ ! "$gid" =~ ^[0-9]+$ || "$gid" -lt "$defaultgid" ]]; do
   read -ep "Please enter gid with number at least or greater than $defaultgid. [$uid]: " -i "$uid" gid
 done
 
-read -ep "What shell do you want to use? (zsh or [bash]): " -i "bash" shell
+read -ep "What shell do you want to use? (bash or [zsh]): " -i "zsh" shell
 while [[ ! "$shell" = "bash" && ! "$shell" = "zsh" ]]; do
-  read -ep "Please enter zsh or [bash]: " -i "bash" shell
+  read -ep "Please enter bash or [zsh]: " -i "zsh" shell
 done
 
 read -p "Do you want to add $username to wheel group? " ans4

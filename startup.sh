@@ -1,5 +1,6 @@
 #!/bin/sh
 set -euo pipefail
+setfont ter-132n
 
 # Checking if is running in Repo Folder
 if [ "$(basename "$(pwd)")" = archinstall ]; then

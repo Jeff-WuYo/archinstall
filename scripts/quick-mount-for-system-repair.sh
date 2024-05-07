@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # this script mount the btrfs system as originaly installed.
 lsblk
 read -p "What disk did os install to?: " dis

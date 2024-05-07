@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 # locale configuration
 sed -i.bkp 's/#en_US.UTF-8/en_US.UTF-8/; s/#zh_TW.UTF-8/zh_TW.UTF-8/' /etc/locale.gen && locale-gen

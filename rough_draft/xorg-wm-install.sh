@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # install xorg and pipewire
 pacman -Sy xorg-server xorg-xhost xorg-xinit xorg-xrandr xorg-xkill alsa-utils pipewire pipewire-alsa pipewire-pulse wireplumber --needed --noconfirm
 # install utils

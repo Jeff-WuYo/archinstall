@@ -1,4 +1,4 @@
-#/bin/sh
+#!/usr/bin/env bash
 #original command
 echo "↓↓↓↓↓original command↓↓↓↓↓"
 time blkid | awk '/'"$(awk '/256/ {print $1}' /etc/fstab | tr -d UUID=)"'/ {print$NF}' | tr -d \"

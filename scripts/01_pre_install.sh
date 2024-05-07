@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 timedatectl set-ntp true
 timedatectl set-timezone Asia/Taipei
 reflector -c TW -p https --sort rate --save /etc/pacman.d/mirrorlist

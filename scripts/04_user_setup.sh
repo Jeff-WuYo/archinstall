@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -euo pipefail
 unset -v username uid fullname groupname gid shell ans4
 passwduid=$(cut -f 3 -d: /etc/passwd | sort -n | tail -2 | head -1)

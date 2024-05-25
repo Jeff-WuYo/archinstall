@@ -7,7 +7,7 @@ if [[ "$dis" =~ "nvme" ]]; then
 else
     par="$dis"
 fi
-rpar="$dis"3
+rpar="$par"3
 umount -A -R /mnt
 mount -o rw,noatime,compress=zstd,subvolid=256 /dev/$rpar /mnt &&
 mount -o rw,noatime,compress=zstd,subvolid=257 /dev/$rpar /mnt/home &&

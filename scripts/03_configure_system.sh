@@ -3,6 +3,7 @@ ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 
 # system configuration
 sed -i 's/#en_US.UTF-8/en_US.UTF-8/; s/#zh_TW.UTF-8/zh_TW.UTF-8/' /etc/locale.gen && locale-gen
+sed -i 's/#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=7s/' /etc/systemd/system.conf
 read -p "Please enter your hostname: " hostname
 echo "$hostname" > /etc/hostname
 echo "permit persist :wheel" > /etc/doas.conf

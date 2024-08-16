@@ -5,7 +5,7 @@ passwduid=$(cut -f 3 -d: /etc/passwd | sort -n | tail -2 | head -1)
 [ "$passwduid" -lt 1000 ] && defaultuid=1000 || defaultuid=$(( passwduid + 1 ))
 groupgid=$(cut -f 3 -d: /etc/group | sort -n | tail -2 | head -1)
 [ "$groupgid" -lt 1000 ] && defaultgid=1000 || defaultgid=$(( groupgid + 1 ))
-function passwd_check {
+passwd_check() {
   echo "Please enter your password again"
   passwd "$username" || passwd_check
 }

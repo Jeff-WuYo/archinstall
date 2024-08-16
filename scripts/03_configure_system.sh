@@ -2,14 +2,15 @@
 ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 
 # system configuration
-sed -i 's/#en_US.UTF-8/en_US.UTF-8/; s/#zh_TW.UTF-8/zh_TW.UTF-8/' /etc/locale.gen && locale-gen
-sed -i 's/#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=7s/' /etc/systemd/system.conf
+sed -i 's/^#en_US.UTF-8/en_US.UTF-8/; s/^#zh_TW.UTF-8/zh_TW.UTF-8/' /etc/locale.gen && locale-gen
+sed -i 's/^#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=7s/' /etc/systemd/system.conf
+sed -i 's/^#COMPRESSION="lz4"/COMPRESSION="lz4"/' /etc/mkinitcpio.conf
 read -p "Please enter your hostname: " hostname
 echo "$hostname" > /etc/hostname
 echo "permit persist :wheel" > /etc/doas.conf
 systemctl enable systemd-networkd.service
 systemctl enable systemd-resolved.service
-sed -i 's/#NTP=/NTP=time.stdtime.gov.tw/' /etc/systemd/timesyncd.conf && timedatectl set-ntp true
+sed -i 's/^#NTP=/NTP=time.stdtime.gov.tw/' /etc/systemd/timesyncd.conf && timedatectl set-ntp true
 sed -i 's/^#ParallelDownloads/ParallelDownloads/; s/^#Color/Color/' /etc/pacman.conf
 systemctl enable apparmor.service
 systemctl enable ufw.service

@@ -7,37 +7,35 @@ sed -i 's/^#ParallelDownloads/ParallelDownloads/; s/^#Color/Color/' /etc/pacman.
 
 # partition disk
 unset -v ans1
-read -p "Do you want to partiton disk now? (yes/no): " ans1
-while [ ! "$ans1" = yes ]; do
-    if [ "$ans1" = no ]; then
-        echo "Stop partitioning, abort!"
-        unset -v ans1
-        exit 101
-    elif [ "$ans1" = exit ]; then
-        echo "Stop partitioning, abort!"
-        unset -v ans1
-        exit 101
-    else
-        read -p "Do you want to partiton disk now? Please answer yes or no: " ans1
-    fi
+while true; do
+  read -p "Do you want to partition disk now? (yes/no): " ans1
+  case $ans1 in
+    [Yy]|[Yy]es) break ;;
+    [Nn]|[Nn]o) printf "Abort!\n" ; unset -v ans1 ; exit 101 ;;
+    exit|quit) printf "Abort!\n" ; unset -v ans1 ; exit 101 ;;
+    *) printf "Please answer yes or no, exit to quit.\n" ;;
+  esac
 done
 
 unset -v ans1 dis ans2
-lsblk
-read -p "Which disk do you want to install? (/dev/<disk_to_install>): " dis
-read -p "Is $dis correct? All the data will be lost (yes/no): " ans2
-while [ ! "$ans2" = yes ]; do
-    if [ "$ans2" = no ]; then
-        lsblk
-        read -p "Which disk do you want to install? (/dev/<disk_to_install>): " dis
-        read -p "Is $dis correct? All the data will be lost (yes/no): " ans2
-    elif [ "$ans2" = exit ]; then
-        echo "Abort!"
-        unset -v dis ans2
-        exit 102
-    else
-        read -p "Is $dis correct? All the data will be lost, Please answer yes or no: " ans2
-    fi
+lsblk -o NAME,SIZE,MODEL
+disks=( $(lsblk -d -n -o NAME -e 7,253,254) exit )
+printf "Which disk do you want to install? (select number)\n"
+select dis in "${disks[@]}"; do
+  if [[ $REPLY -ge 1 && $REPLY -le ${#disks[@]} ]]; then
+    [ "$dis" = exit ] && exit 102
+    while true; do
+      read -p $'Is \033[1m'"$dis"$'\033[0m correct? All data will be \033[1mlost\033[0m: \n' ans2
+      case $ans2 in
+        [Yy]|[Yy]es) break 2 ;;
+        [Nn]|[Nn]o) unset -v dis ; break ;;
+        exit|quit) printf "Abort!\n" ; unset -v dis ans2 ; exit 103 ;;
+        *) printf "Please answer yes or no.\n" ;;
+      esac
+    done
+  else
+    printf "Invalid choise, please try again.\n"
+  fi
 done
 
 sgdisk -Z /dev/$dis && 

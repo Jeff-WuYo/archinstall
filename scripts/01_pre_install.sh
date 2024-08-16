@@ -19,7 +19,7 @@ done
 
 unset -v ans1 dis ans2
 lsblk -o NAME,SIZE,MODEL
-disks=( $(lsblk -d -n -o NAME -e 7,253,254) exit )
+disks=( $(lsblk -d -n -o NAME -e 7,11,253) exit )
 printf "Which disk do you want to install? (select number)\n"
 select dis in "${disks[@]}"; do
   if [[ $REPLY -ge 1 && $REPLY -le ${#disks[@]} ]]; then

@@ -22,7 +22,7 @@ lsblk -o NAME,SIZE,MODEL
 disks=( $(lsblk -d -n -o NAME -e 7,11,253) exit )
 printf "Which disk do you want to install? (select number)\n"
 select dis in "${disks[@]}"; do
-  if [[ $REPLY -ge 1 && $REPLY -le ${#disks[@]} ]]; then
+  if [[ $REPLY -ge 1 && $REPLY -le ${#disks[@]} ]] &>/dev/null; then
     [ "$dis" = exit ] && exit 102
     while true; do
       read -p $'Is \033[1m'"$dis"$'\033[0m correct? All data will be \033[1mlost\033[0m: \n' ans2

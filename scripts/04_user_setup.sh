@@ -38,10 +38,12 @@ done
 read -p "Do you want to add $username to wheel group? " ans4
 
 groupadd -g "$gid" "$groupname" &&
-if [ "$ans4" = yes ]; then
-  useradd -m -u "$uid" -g "$gid" -G wheel -s "/usr/bin/$shell" "$username"
-else
-  useradd -m -u "$uid" -g "$gid" -s "/usr/bin/$shell" "$username"
-fi
+  while true; do
+    case $ans4 in
+      [Yy]|[Yy]es) useradd -m -u "$uid" -g "$gid" -G wheel -s "/usr/bin/$shell" "$username" ; break ;;
+      [Nn]|[Nn]o) useradd -m -u "$uid" -g "$gid" -s "/usr/bin/$shell" "$username" ; break ;;
+      *) printf "Please answer \033[1myes\033[0m or \033[1mno\033[0m. \n" ;;
+    esac
+  done
 
 passwd "$username" || passwd_check

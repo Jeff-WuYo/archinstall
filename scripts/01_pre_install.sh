@@ -40,7 +40,7 @@ done
 
 sgdisk -Z /dev/$dis && 
 sgdisk -og /dev/$dis && 
-sgdisk -n 1:2048:+260M -n 2:0:+1G -n 3:0:0 -t 1:ef00 -t 2:ea00 -t 3:8300 -c 1:ESP -c 2:BOOT -c 3:LINUX_ROOT /dev/$dis
+sgdisk -I -n 1:2048:+260M -n 2:0:+1G -n 3:0:0 -t 1:ef00 -t 2:ea00 -t 3:8300 -c 1:ESP -c 2:BOOT -c 3:LINUX_ROOT /dev/$dis
 sgdisk -p /dev/$dis
 
 # format partiton

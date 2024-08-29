@@ -8,6 +8,7 @@ sed -i 's/^#COMPRESSION="lz4"/COMPRESSION="lz4"/' /etc/mkinitcpio.conf
 read -p "Please enter your hostname: " hostname
 echo "$hostname" > /etc/hostname
 echo "permit persist :wheel" > /etc/doas.conf
+printf '# Change zsh dotfile location\nexport ZDOTDIR=$HOME/.config/zsh\n' >> /etc/profile
 systemctl enable systemd-networkd.service
 systemctl enable systemd-resolved.service
 sed -i 's/^#NTP=/NTP=time.stdtime.gov.tw/' /etc/systemd/timesyncd.conf && timedatectl set-ntp true

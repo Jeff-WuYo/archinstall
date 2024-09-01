@@ -35,15 +35,19 @@ while [[ ! "$shell" = "bash" && ! "$shell" = "zsh" ]]; do
   read -ep "Please enter bash or [zsh]: " -i "zsh" shell
 done
 
-read -p "Do you want to add $username to wheel group? " ans4
+while true; do
+  read -p "Do you want to add $username to wheel group? " ans4
+  case $ans4 in
+    [Yy]|[Yy]es) printf "%s will be added to wheel group" "$username" ; break ;;
+    [Nn]|[Nn]o) printf "%s won't be added to wheel group" "$username" ; break ;;
+    *) printf "Please answer \033[1myes\033[0m or \033[1mno\033[0m. \n" ;;
+  esac
+done
 
 groupadd -g "$gid" "$groupname" &&
-  while true; do
-    case $ans4 in
-      [Yy]|[Yy]es) useradd -m -u "$uid" -g "$gid" -G wheel -s "/usr/bin/$shell" "$username" ; break ;;
-      [Nn]|[Nn]o) useradd -m -u "$uid" -g "$gid" -s "/usr/bin/$shell" "$username" ; break ;;
-      *) printf "Please answer \033[1myes\033[0m or \033[1mno\033[0m. \n" ;;
-    esac
-  done
+  case $ans4 in
+    [Yy]|[Yy]es) useradd -m -u "$uid" -g "$gid" -G wheel -s "/usr/bin/$shell" "$username" ;;
+    [Nn]|[Nn]o) useradd -m -u "$uid" -g "$gid" -s "/usr/bin/$shell" "$username" ;;
+  esac
 
 passwd "$username" || passwd_check

@@ -22,7 +22,7 @@ systemctl enable ufw.service
 # install bootloader, configure systemd-boot
 bootctl --esp-path=/efi --boot-path=/boot install &&
 cp /usr/share/systemd/bootctl/arch.conf /boot/loader/entries/ &&
-sed -i "s/PARTUUID=XXXX/$(sed -n '/256/s:\s.*::p' /etc/fstab)/; s/rootfstype=XXXX/rootfstype=btrfs/" /boot/loader/entries/arch.conf
+sed -i "s/PARTUUID=XXXX/$(cut -f1 <(grep "256" /etc/fstab))/; s/rootfstype=XXXX/rootfstype=btrfs/" /boot/loader/entries/arch.conf
 sed -i '/options/s/$/ rootflags=subvolid=256 intel_iommu=on iommu=pt lsm=landlock,lockdown,yama,integrity,apparmor,bpf audit=1 audit_backlog_limit=4096/' /boot/loader/entries/arch.conf
 [ -f /boot/intel-ucode.img ] && sed -i '6i initrd  /intel-ucode.img' /boot/loader/entries/arch.conf
 [ -f /boot/amd-ucode.img ] && sed -i '6i initrd  /amd-ucode.img' /boot/loader/entries/arch.conf

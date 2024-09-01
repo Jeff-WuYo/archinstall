@@ -42,7 +42,13 @@ cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-fallback.conf && sed
 [ ! -f /boot/initramfs-linux.img ] && rm /boot/loader/entries/arch.conf
 [ ! -f /boot/initramfs-linux-fallback.img ] && rm /boot/loader/entries/arch-fallback.conf
 
-echo "start user setup..."
-sleep 3
-source /root/archinstall/scripts/04_user_setup.sh
+while true; do
+  read -p "Do you want to set up user: "
+  case $REPLY in
+    [Yy]|[Yy]es) source /root/archinstall/scripts/04_user_setup.sh ; break ;;
+    [Nn]|[Nn]o) printf "Please setup user manually.\n" ; break ;;
+    exit|quit) printf "Exit!\n" ; exit 0 ;;
+    *) printf "Please answer yes or no.\n"
+  esac
+done
 #source <(curl -s "https://hkg.mirror.rackspace.com/slackware/swackware64-current/source/a/shadow/adduser")

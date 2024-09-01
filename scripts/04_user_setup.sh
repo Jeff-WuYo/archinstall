@@ -38,8 +38,8 @@ done
 while true; do
   read -p "Do you want to add $username to wheel group? " ans4
   case $ans4 in
-    [Yy]|[Yy]es) printf "%s will be added to wheel group" "$username" ; break ;;
-    [Nn]|[Nn]o) printf "%s won't be added to wheel group" "$username" ; break ;;
+    [Yy]|[Yy]es) printf "%s will be added to wheel group\n" "$username" ; break ;;
+    [Nn]|[Nn]o) printf "%s won't be added to wheel group\n" "$username" ; break ;;
     *) printf "Please answer \033[1myes\033[0m or \033[1mno\033[0m. \n" ;;
   esac
 done

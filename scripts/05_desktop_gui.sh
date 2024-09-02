@@ -6,12 +6,12 @@ qtile_xorg() {
 
 qtile_wayland() {
   pacman -S qtile grim swayidle wlr-randr --needed --noconfirm
-  pacman -S --asdeps alsa-utils libinput libpulse lm_sensors python-dbus-next python-psutil python-pywayland python-pywlroots python-setproctitle python-xdg python-xkbcommon xorg-xwayland xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr slurp --needed --noconfirm
+  pacman -S --asdeps alsa-utils libinput libpulse lm_sensors python-dbus-next python-psutil python-pywayland python-pywlroots python-setproctitle python-xdg python-xkbcommon xorg-xwayland xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr slurp wl-clipboard --needed --noconfirm
 }
 
 river() {
   pacman -S river grim swayidle wlr-randr --needed --noconfirm
-  pacman -S --asdeps xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr slurp --needed --noconfirm
+  pacman -S --asdeps xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr slurp wl-clipboard --needed --noconfirm
 }
 
 utils() {

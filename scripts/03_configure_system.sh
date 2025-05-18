@@ -9,6 +9,7 @@ read -p "Please enter your hostname: " hostname
 echo "$hostname" > /etc/hostname
 echo "permit persist :wheel" > /etc/doas.conf
 printf '# Change zsh dotfile location\nexport ZDOTDIR=$HOME/.config/zsh\n' >> /etc/profile
+printf '# Export user binary directory\nappend_path "$HOME/.local/bin"\n' >> /etc/profile
 systemctl enable systemd-networkd.service
 systemctl enable systemd-resolved.service
 sed -i 's/^#NTP=/NTP=time.stdtime.gov.tw/' /etc/systemd/timesyncd.conf && timedatectl set-ntp true

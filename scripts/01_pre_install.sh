@@ -66,13 +66,13 @@ btrfs subv set-default /mnt/@ &&
 umount /mnt &&
 
 # mount partition and subv
-mount -o rw,noatime,compress=zstd,subvolid=256 /dev/$rpar /mnt &&
+mount -o rw,noatime,compress=no,subvolid=256 /dev/$rpar /mnt &&
 mkdir -p /mnt/{boot,efi,home,var/{log,cache,tmp,docker,lib/libvirt/images}} &&
-mount -o rw,noatime,compress=zstd,subvolid=257 /dev/$rpar /mnt/home &&
-mount -o rw,noatime,compress=zstd,subvolid=258 /dev/$rpar /mnt/var/cache &&
-mount -o rw,noatime,compress=zstd,subvolid=259 /dev/$rpar /mnt/var/log &&
-mount -o rw,noatime,compress=zstd,subvolid=260 /dev/$rpar /mnt/var/tmp &&
-mount -o rw,noatime,subvolid=261 /dev/$rpar /mnt/var/lib/libvirt/images &&
-mount -o rw,noatime,compress=zstd,subvolid=262 /dev/$rpar /mnt/var/docker &&
+mount -o rw,noatime,compress=no,subvolid=257 /dev/$rpar /mnt/home &&
+mount -o rw,noatime,compress=no,subvolid=258 /dev/$rpar /mnt/var/cache &&
+mount -o rw,noatime,compress=no,subvolid=259 /dev/$rpar /mnt/var/log &&
+mount -o rw,noatime,compress=no,subvolid=260 /dev/$rpar /mnt/var/tmp &&
+mount -o rw,noatime,compress=no,subvolid=261 /dev/$rpar /mnt/var/lib/libvirt/images &&
+mount -o rw,noatime,compress=no,subvolid=262 /dev/$rpar /mnt/var/docker &&
 mount /dev/"$par"1 /mnt/efi &&
 mount /dev/"$par"2 /mnt/boot
